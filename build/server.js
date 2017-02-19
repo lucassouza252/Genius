@@ -32,7 +32,6 @@ var Server = (function () {
     };
     Server.prototype.router = function () {
         var expressRoute = express.Router();
-        //Init of the Api
         this.routes = new Routes_1.Routes();
         this.app.use("/api", this.routes.router);
         expressRoute.get('/', function (req, res) {

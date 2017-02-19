@@ -14,10 +14,12 @@ var DbConnection = (function () {
         this.connection.connect(function (err) {
             if (err) {
                 console.error('Connection ' + err.stack);
-                return;
             }
             console.log('Database Connected');
         });
+    };
+    DbConnection.prototype.desconect = function () {
+        this.connection.end();
     };
     return DbConnection;
 }());

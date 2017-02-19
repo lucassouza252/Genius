@@ -15,14 +15,18 @@ export class DbConnection{
         });
     }
 
-    public conect(){
+    public conect(): void{
 
         this.connection.connect(function (err) {
             if (err) {
                 console.error('Connection ' + err.stack);
-                return;
             }
             console.log('Database Connected');
         });
+    }
+
+    public desconect(): void{
+        
+        this.connection.end();
     }
 }
