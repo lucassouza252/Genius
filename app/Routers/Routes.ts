@@ -2,10 +2,17 @@ import * as express  from 'express';
 
 export class Routes{
 
-    private router: express.Router;
+    public router: express.Router;
 
     constructor(){
+
         this.router = express.Router();
+        this.init();
+    }
+
+    private init(): void{
+
+        this.methods();
     }
 
     private methods(): void{

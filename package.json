@@ -5,7 +5,8 @@
   "main": "index.js",
   "repository": "https://github.com/lucassouza252/Genius.git",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && nodemon build/server.js"
   },
   "keywords": [],
   "author": "Lucas Souza",
