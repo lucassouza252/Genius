@@ -2,7 +2,7 @@ import * as mysql from 'mysql';
 
 export class DbConnection{
 
-    private connection;
+    public  connection;
 
     constructor(){
 
@@ -11,7 +11,7 @@ export class DbConnection{
             port: 3306,
             user: 'root',
             password: 'senha',
-            database: 'Genius'
+            database: '91237655'
         });
     }
 
@@ -26,7 +26,7 @@ export class DbConnection{
     }
 
     public desconect(): void{
-        
+
         this.connection.end();
     }
 }

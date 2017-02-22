@@ -7,7 +7,7 @@ var DbConnection = (function () {
             port: 3306,
             user: 'root',
             password: 'senha',
-            database: 'Genius'
+            database: '91237655'
         });
     }
     DbConnection.prototype.conect = function () {

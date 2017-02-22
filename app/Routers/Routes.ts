@@ -35,7 +35,7 @@ export class Routes{
         this.router.put('/book/:id', (req: express.Request, res: express.Response)=>{
             control.update(req, res);
         });
-        
+
         this.router.delete('/book/:id', (req: express.Request, res: express.Response)=>{
             control.delete(req, res);
         });
