@@ -5,69 +5,19 @@ var BookController = (function () {
         this.bookRepository = new BookRepository_1.BookRepository();
     }
     BookController.prototype.create = function (req, res) {
-        var result = false;
-        try {
-            result = this.bookRepository.create(req, res);
-            if (result) {
-                res.status(200);
-            }
-            else {
-                res.status(500);
-            }
-        }
-        catch (Exception) {
-            console.log('Erro: ' + Exception.message);
-        }
+        this.bookRepository.create(req, res);
     };
     BookController.prototype.find = function (req, res) {
-        var books = new Array();
-        try {
-            books = this.bookRepository.find(req, res);
-            res.write(JSON.stringify(books));
-        }
-        catch (Exception) {
-            console.log('Erro: ' + Exception.message);
-        }
+        this.bookRepository.list(req, res);
     };
     BookController.prototype.findById = function (req, res) {
-        var book;
-        try {
-            book = this.bookRepository.find(req, res);
-            res.write(JSON.stringify(book));
-        }
-        catch (Exception) {
-            console.log('Erro: ' + Exception.message);
-        }
+        this.bookRepository.find(req, res);
     };
     BookController.prototype.update = function (req, res) {
-        var result = false;
-        try {
-            result = this.bookRepository.update(req, res);
-            if (result) {
-                res.status(200);
-            }
-            else {
-                res.status(500);
-            }
-        }
-        catch (Exception) {
-            console.log('Erro: ' + Exception.message);
-        }
+        this.bookRepository.update(req, res);
     };
     BookController.prototype.delete = function (req, res) {
-        var result = false;
-        try {
-            result = this.bookRepository.delete(req, res);
-            if (result) {
-                res.status(200);
-            }
-            else {
-                res.status(500);
-            }
-        }
-        catch (Exception) {
-            console.log('Erro: ' + Exception.message);
-        }
+        this.bookRepository.remove(req, res);
     };
     return BookController;
 }());

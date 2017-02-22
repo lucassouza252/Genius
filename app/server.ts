@@ -2,13 +2,14 @@ import * as express from 'express';
 import { Routes } from './Routers/Routes';
 import  http  = require ('http');
 import * as path from "path";
-import { DbConnection } from './Repository/Config/DbConnection';
+import * as mongoose from "mongoose";
 
 class Server{
 
     public app: any;
     private server: any;
     private public: string;
+    private mongo: any;
     private routes: any;
     private port: number;
     private dbConnect: any;
@@ -24,8 +25,7 @@ class Server{
         this.config();
         this.listen();
         this.router();
-        this.dbConnect = new DbConnection();
-        this.dbConnect.conect();
+        this.data();
     }
 
     private config(): void{
@@ -59,6 +59,14 @@ class Server{
         });
 
         this.app.use("*", expressRoute);
+    }
+
+    private data(): void{
+
+        const mongoUri = process.env.MONGODB_URI || "mongodb://mainuser:root@ds157479.mlab.com:57479/bookstory";
+
+        this.mongo = mongoose.connect(mongoUri);
+        (<any>mongoose).Promise = global.Promise;
     }
 }
 

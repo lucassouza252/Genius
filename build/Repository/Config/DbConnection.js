@@ -6,8 +6,8 @@ var DbConnection = (function () {
             host: 'localhost',
             port: 3306,
             user: 'root',
-            password: 'senha',
-            database: '91237655'
+            password: '91237655',
+            database: 'Genius'
         });
     }
     DbConnection.prototype.conect = function () {

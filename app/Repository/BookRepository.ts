@@ -1,99 +1,118 @@
 import * as express from 'express';
 import { IBookRepository } from './IBookRepository';
-import { Book } from '../Models/Book';
-import { DbConnection } from './Config/DbConnection';
+import { IBook, BookModel, IBookModel }  from '../Models/Book';
 
 export class BookRepository implements IBookRepository{
 
-    db: DbConnection = new DbConnection();
+    public list(req: express.Request, res: express.Response): any {
 
-    find(req: express.Request, res: express.Response): Array<Book>{
-
-        let books = new Array<Book>();
-
-        this.db.conect();
-        this.db.connection.query('SELECT * from Book', function(err, res){
-            if(err){
-                throw err;
-            }
-            else{
-                this.books = res;
-            }
+        BookModel.find({}).exec((error: any, book: IBookModel[])=>{
+            return res.send({
+                book: book || []
+            });
         });
-
-        this.db.desconect();
-        return books;
     }
 
-    findById(req: express.Request, res: express.Response): Book{
+    public create(req: express.Request, res: express.Response): any{
 
-        let book = new Book();
-
-        this.db.conect();
-        this.db.connection.query('SELECT * FROM Book WHERE id=' + req.params.id, function(err, res){
-            if(err){
-                throw err;
-            }
-            else{
-                this.book = res;
-            }
+        let data = [];
+        req.on('data', chunk=>{
+            data.push(chunk);
+        }).on('end', ()=>{
+            let bookString = Buffer.concat(data).toString();
+            let book: IBook = bookString ? JSON.parse(bookString) : {};
+            BookModel.create(book, (error: any, book: IBookModel)=>{
+                if(book){
+                    return res.send(book);
+                }
+                else{
+                    return res.status(400).send({
+                        success: false
+                    });
+                }
+            });
         });
-
-        this.db.desconect();
-        return book;
     }
 
-    create(req: express.Request, res: express.Response): boolean{
+    public find(req: express.Request, res: express.Response): any{
 
-        let result: boolean = false;
-
-        this.db.conect();
-        this.db.connection.query('INSERT INTO Book set ?', req.body, function(err, res){
-            if(err){
-                throw err;
-            }
-            else{
-                result = true;
-            }
-        });
-
-        return result;
+        const id = req.params.id;
+        if(id){
+            BookModel.findById(id).exec((error: any, book: IBookModel)=>{
+                if(book){
+                    return res.send(book);
+                }
+                else{
+                    return res.status(400).send({
+                        success: false
+                    });
+                }
+            });
+        }
+        else{
+            res.status(400).send({
+                succes: false
+            });
+        }
     }
 
-    update(req: express.Request, res: express.Response): boolean{
+    public update(req: express.Request, res: express.Response): any{
 
-        let result: boolean = false;
-
-        this.db.conect();
-        this.db.connection.query('UPDATE Book set ? where id = ?', [req.body, req.params.id],
-        function(err, rows){
-            if(err){
-                throw err;
-            }
-            else{
-                result = true;
-            }
-        });
-
-        this.db.desconect();
-        return result;
+        const id = req.params.id;
+        if(id){
+            let data = [];
+            req.on('data', chunk=>{
+                data.push(chunk);
+            }).on('end', ()=>{
+                let bookString = Buffer.concat(data).toString();
+                let bookUpdate: IBook = bookString ? JSON.parse(bookString) : {};
+                BookModel.findById(id).exec((erro: any, book: IBookModel)=>{
+                    if(book){
+                        if(bookUpdate.name){ book.name = bookUpdate.name ;}
+                        if(bookUpdate.description){ book.description = bookUpdate.description ;}
+                        if(bookUpdate.author){ book.author = bookUpdate.author ;}
+                        if(bookUpdate.imageUrl){ book.imageUrl = bookUpdate.imageUrl ;}
+                        if(bookUpdate.price){ book.price = bookUpdate.price ;}
+                        book.save();
+                        return res.send(book);
+                    }
+                    else{
+                        return res.status(500).send({
+                            success: false
+                        });
+                    }
+                });
+            });
+        }
+        else{
+            res.status(500).send({
+                success: false
+            });
+        }
     }
 
-    delete(req: express.Request, res: express.Response): boolean{
+    public remove(req: express.Request, res: express.Response): any{
 
-        let result: boolean = false;
-
-        this.db.conect();
-        this.db.connection.query('DELETE from Book where id='+ req.params.id, function(err, res){
-            if(err){
-                throw err;
-            }
-            else{
-                result = true;
-            }
-        });
-
-        this.db.desconect();
-        return result;
+        const id = req.params.id;
+        if(id){
+            BookModel.findById(id).exec((error: any, book: IBookModel)=>{
+                if(book){
+                    book.remove();
+                    return res.send({
+                        success: true
+                    });
+                }
+                else{
+                    return res.status(400).send({
+                        success: false
+                    });
+                }
+            });
+        }
+        else{
+            res.status(400).send({
+                success: false
+            });
+        }
     }
 }
