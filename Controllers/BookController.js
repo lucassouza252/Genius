@@ -1,38 +1,47 @@
 "use strict";
 const BookRepository = require("../Repository/BookRepository");
-//const SqliteRepository = require("../Repository/SqliteRepository");
+const OtherBookRepository = require('../Repository/OtherBookRepository');
 
 class BookController {
 
     constructor() {
 
         this.bookRepository = new BookRepository.BookRepository();
-        //this.sqliteRepository = new SqliteRepository.SqliteRepository();
+
     }
 
     create(req, res) {
 
-        this.bookRepository.create(req, res);
+        let newBook = req.body;
+
+        OtherBookRepository.create(newBook, res);
     }
 
     find(req, res) {
 
-        this.bookRepository.list(req, res);
+        OtherBookRepository.list(req, res);
     }
 
     findById(req, res) {
 
-        this.bookRepository.find(req, res);
+        let bookId = req.params.id;
+
+        OtherBookRepository.find(bookId, res);
     }
 
     update(req, res) {
 
-        this.bookRepository.update(req, res);
+        let bookId = req.params.id;
+        let updateBook = req.body;
+
+        OtherBookRepository.update(bookId, updateBook, res);
     }
 
     delete(req, res) {
 
-        this.bookRepository.remove(req, res);
+        let bookId = req.params.id;
+
+        OtherBookRepository.remove(bookId, res);
     }
 }
 

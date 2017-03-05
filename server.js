@@ -3,7 +3,6 @@ const express = require("express");
 const routes = require("./Routers/Routes");
 const http = require("http");
 const mongoose = require("mongoose");
-const sqlite = require("sqlite-sync");
 
 class Server {
 
@@ -19,7 +18,6 @@ class Server {
         this.listen();
         this.router();
         this.data();
-        this.dbConfig();
     }
 
     config() {
@@ -82,13 +80,6 @@ class Server {
         mongoose.Promise = global.Promise;
     }
 
-    dbConfig() {
-
-        sqlite.connect('book.db');
-        sqlite.run('CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,' +
-            ' name CHAR(100), description TEXT, author CHAR(100),' +
-            ' imageUrl CHAR(100), price REAL);');
-    }
 }
 
 module.exports = new Server().app;
