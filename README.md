@@ -1,6 +1,5 @@
-# Geius Application
+# Genius Application
 
-## NodeJS with TypeScript
+## NodeJS with es6
 
-### Run:
-##### npm intall, sudo typings install, and npm start
+### Run: npm install

@@ -1,0 +1,94 @@
+"use strict";
+const express = require("express");
+const routes = require("./Routers/Routes");
+const http = require("http");
+const mongoose = require("mongoose");
+const sqlite = require("sqlite-sync");
+
+class Server {
+
+    static init() {
+        return new Server();
+    }
+
+    constructor() {
+
+        this.app = express();
+        this.server = http.createServer(this.app);
+        this.config();
+        this.listen();
+        this.router();
+        this.data();
+        this.dbConfig();
+    }
+
+    config() {
+
+        this.port = process.env.PORT || 3000;
+        this.app.use(express.static(__dirname + '/../public'));
+        this.app.use(function(req, res, next) {
+            var oneof = false;
+            if (req.headers.origin) {
+                res.header('Access-Control-Allow-Origin', req.headers.origin);
+                oneof = true;
+            }
+            if (req.headers['access-control-request-method']) {
+                res.header('Access-Control-Allow-Methods', req.headers['access-control-request-method']);
+                oneof = true;
+            }
+            if (req.headers['access-control-request-headers']) {
+                res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
+                oneof = true;
+            }
+            if (oneof) {
+                res.header('Access-Control-Max-Age', 60 * 60 * 24 * 365);
+            }
+            // intercept OPTIONS method
+            if (oneof && req.method == 'OPTIONS') {
+                res.sendStatus(200);
+            } else {
+                next();
+            }
+        });
+    }
+
+    listen() {
+
+        this.server.listen(this.port);
+        this.server.on("error", erro => {
+            console.log("Erro: " + erro);
+        });
+        this.server.on("listening", () => {
+            console.log("Listening at localhost:%s", this.port);
+        });
+    }
+
+    router() {
+
+        let expressRoute = express.Router();
+        //Init of the Api
+        this.routes = new routes.Routes();
+        this.app.use("/api", this.routes.router);
+        //expressRoute.get('/', (req: express.Request, res: express.Response)=>{
+        //    res.sendFile(__dirname + '/public');
+        //});
+        this.app.use("*", expressRoute);
+    }
+
+    data() {
+
+        const mongoUri = process.env.MONGODB_URI || "mongodb://mainuser:root@ds157479.mlab.com:57479/bookstory";
+        this.mongo = mongoose.connect(mongoUri);
+        mongoose.Promise = global.Promise;
+    }
+
+    dbConfig() {
+
+        sqlite.connect('book.db');
+        sqlite.run('CREATE TABLE books (id INTEGER PRIMARY KEY AUTOINCREMENT,' +
+            ' name CHAR(100), description TEXT, author CHAR(100),' +
+            ' imageUrl CHAR(100), price REAL);');
+    }
+}
+
+module.exports = new Server().app;

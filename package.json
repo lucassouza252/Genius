@@ -1,19 +1,22 @@
 {
   "name": "genius",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "repository": "https://github.com/lucassouza252/Genius.git",
+  "description": "Genius Application Book Store Api",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc && nodemon build/server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "es6",
+    "genius",
+    "api",
+    "node"
+  ],
   "author": "Lucas Souza",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.14.1",
-    "mongoose": "^4.8.4"
-
+    "express": "^4.15.0",
+    "mongoose": "^4.8.5",
+    "sqlite-sync": "^0.3.6"
   }
 }
