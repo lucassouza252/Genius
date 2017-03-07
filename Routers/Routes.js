@@ -29,7 +29,6 @@ class Routes {
 
         this.router.post('/book', (req, res) => {
             control.create(req, res);
-            console.log(req.params.name);
         });
 
         this.router.put('/book/:id', (req, res) => {

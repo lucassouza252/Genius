@@ -2,7 +2,7 @@
 const express = require("express");
 const routes = require("./Routers/Routes");
 const http = require("http");
-const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 class Server {
 
@@ -17,13 +17,14 @@ class Server {
         this.config();
         this.listen();
         this.router();
-        this.data();
     }
 
     config() {
 
         this.port = process.env.PORT || 3000;
         this.app.use(express.static(__dirname + '/../public'));
+        this.app.use(bodyParser.urlencoded({ extended: true }));
+        this.app.use(bodyParser.json());
         this.app.use(function(req, res, next) {
             var oneof = false;
             if (req.headers.origin) {
@@ -72,14 +73,6 @@ class Server {
         //});
         this.app.use("*", expressRoute);
     }
-
-    data() {
-
-        const mongoUri = process.env.MONGODB_URI || "mongodb://mainuser:root@ds157479.mlab.com:57479/bookstory";
-        this.mongo = mongoose.connect(mongoUri);
-        mongoose.Promise = global.Promise;
-    }
-
 }
 
 module.exports = new Server().app;

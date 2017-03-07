@@ -1,25 +1,24 @@
 {
-  "name": "genius",
-  "version": "1.0.0",
-  "description": "Genius Application Book Store Api",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "es6",
-    "genius",
-    "api",
-    "node"
-  ],
-  "author": "Lucas Souza",
-  "license": "ISC",
-  "dependencies": {
-    "bookshelf": "^0.10.3",
-    "express": "^4.15.0",
-    "knex": "^0.12.7",
-    "mongoose": "^4.8.5",
-    "mysql": "^2.13.0",
-    "sqlite-sync": "^0.3.6"
-  }
+    "name": "genius",
+    "version": "1.0.0",
+    "description": "Genius Application Book Store Api",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "es6",
+        "genius",
+        "api",
+        "node"
+    ],
+    "author": "Lucas Souza",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.17.0",
+        "bookshelf": "^0.10.3",
+        "express": "^4.15.0",
+        "knex": "^0.12.7",
+        "mysql": "^2.13.0"
+    }
 }

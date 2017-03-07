@@ -1,13 +1,6 @@
-"use strict";
-const mongoose = require("mongoose");
+'use strict';
+const bookshelf = require('../Repository/Bookshelf');
 
-exports.BookSchema = new mongoose.Schema({
-
-    name: String,
-    description: String,
-    author: String,
-    imageUrl: String,
-    price: Number
+exports.model = bookshelf.Model.extend({
+    tableName: 'Book'
 });
-
-exports.BookModel = mongoose.model("BookModel", exports.BookSchema);
