@@ -4,24 +4,26 @@ const BookRepository = require("../Repository/BookRepository");
 
 class BookController {
 
-    constructor() {}
+    constructor() {
+        this.bookRepo = new BookRepository.BookRepository();
+    }
 
     create(req, res) {
 
         let newBook = req.body;
-        BookRepository.create(newBook, res);
+        this.bookRepo.create(newBook, res);
     }
 
     find(req, res) {
 
-        BookRepository.list(req, res);
+        this.bookRepo.list(req, res);
     }
 
     findById(req, res) {
 
         let bookId = req.params.id;
 
-        BookRepository.find(bookId, res);
+        bookRepo.find(bookId, res);
     }
 
     update(req, res) {
@@ -29,14 +31,14 @@ class BookController {
         let bookId = req.params.id;
         let updateBook = req.body;
 
-        BookRepository.update(bookId, updateBook, res);
+        this.bookRepo.update(bookId, updateBook, res);
     }
 
     delete(req, res) {
 
         let bookId = req.params.id;
 
-        BookRepository.remove(bookId, res);
+        this.bookRepo.remove(bookId, res);
     }
 }
 
