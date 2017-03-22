@@ -23,7 +23,7 @@ class BookController {
 
         let bookId = req.params.id;
 
-        bookRepo.find(bookId, res);
+        this.bookRepo.find(bookId, res);
     }
 
     update(req, res) {

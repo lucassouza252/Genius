@@ -1,6 +1,7 @@
 "use strict";
 const express = require("express");
 const bookController = require("../Controllers/BookController");
+const salesController = require("../Controllers/SalesController");
 
 class Routes {
 
@@ -17,26 +18,35 @@ class Routes {
 
     methods() {
 
-        let control = new bookController.BookController();
+        let bookControl = new bookController.BookController();
+        let salesControl = new salesController.SalesController();
 
         this.router.get('/book', (req, res) => {
-            control.find(req, res);
+            bookControl.find(req, res);
         });
 
         this.router.get('/book/:id', (req, res) => {
-            control.findById(req, res);
+            bookControl.findById(req, res);
         });
 
         this.router.post('/book', (req, res) => {
-            control.create(req, res);
+            bookControl.create(req, res);
         });
 
         this.router.put('/book/:id', (req, res) => {
-            control.update(req, res);
+            bookControl.update(req, res);
         });
 
         this.router.delete('/book/:id', (req, res) => {
-            control.delete(req, res);
+            bookControl.delete(req, res);
+        });
+
+        this.router.get('/sales', (req, res) => {
+            salesControl.find(req, res);
+        });
+
+        this.router.post('/sales', (req, res) => {
+            salesControl.create(req, res);
         });
     }
 }

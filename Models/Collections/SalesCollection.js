@@ -1,7 +1,7 @@
 'use strict';
 const bookshelf = require('../../Repository/Bookshelf');
-const Author = require('../Author').model;
+const Sales = require('../Sales').model;
 
 exports.collection = bookshelf.Collection.extend({
-    model: Author
+    model: Sales
 });

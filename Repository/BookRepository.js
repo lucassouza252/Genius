@@ -26,7 +26,7 @@ class BookRepository {
 
     find(bookId, res) {
 
-        new Book({ id: bookId }).fecth().then(function(result) {
+        new Book({ id: bookId }).fetch().then(function(result) {
             if (result == undefined) {
                 res.json(404, { error: 'Not Found' });
             } else {
