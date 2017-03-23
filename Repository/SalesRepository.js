@@ -16,7 +16,7 @@ class SalesRepository {
         new Sales({
             buyerName: newSales.buyerName,
             quantity: newSales.quantity,
-            amount: newSales.amount
+            ids: newSales.ids
         }).save().then(function(result) {
             res.status(200).json(result);
         });

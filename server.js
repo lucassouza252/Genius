@@ -68,9 +68,7 @@ class Server {
         //Init of the Api
         this.routes = new routes.Routes();
         this.app.use("/api", this.routes.router);
-        //expressRoute.get('/', (req: express.Request, res: express.Response)=>{
-        //    res.sendFile(__dirname + '/public');
-        //});
+        this.app.use(express.static(__dirname + '/public'));
         this.app.use("*", expressRoute);
     }
 }

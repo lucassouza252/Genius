@@ -11,6 +11,7 @@ class SalesController {
 
         let newSales = req.body;
         this.salesRepo.create(newSales, res);
+        console.log(newSales);
     }
 
     find(req, res) {
