@@ -4,7 +4,7 @@ const Knex = require('knex')({
     connection: {
         host: '127.0.0.1',
         user: 'root',
-        password: '91237655',
+        password: 'senha',
         database: 'Genius',
         charset: 'utf8'
     }
